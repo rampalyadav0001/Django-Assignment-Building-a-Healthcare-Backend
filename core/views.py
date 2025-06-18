@@ -11,10 +11,7 @@ from .serializers import (
 
 
 class IsOwner(permissions.BasePermission):
-    """
-    Object‑level permission: only the user who created the object can
-    retrieve/update/delete it.
-    """
+   
     def has_object_permission(self, request, view, obj):
         return obj.created_by == request.user
 
@@ -53,8 +50,7 @@ class DoctorListCreate(generics.ListCreateAPIView):
     ordering = ["-created_at"]
 
     def get_queryset(self):
-        # Show only doctors created by this user.
-        # Remove the filter if you want everyone to see all doctors.
+       
         return Doctor.objects.filter(created_by=self.request.user)
 
     def perform_create(self, serializer):
@@ -78,11 +74,11 @@ class MappingListCreate(generics.ListCreateAPIView):
     serializer_class = PatientDoctorSerializer
 
     def get_queryset(self):
-        # Only mappings that belong to *your* patients
+        
         return PatientDoctor.objects.filter(patient__created_by=self.request.user)
 
     def perform_create(self, serializer):
-        serializer.save()  # patient_id & doctor_id arrive in the request body
+        serializer.save() 
 
 
 class MappingByPatient(generics.ListAPIView):

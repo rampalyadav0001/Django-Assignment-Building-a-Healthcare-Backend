@@ -6,4 +6,4 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = RegisterSerializer
 
-# For login we’ll reuse SimpleJWT’s built‑in TokenObtainPairView
+
